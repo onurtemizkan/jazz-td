@@ -1,11 +1,8 @@
 class TDPlayerController extends PlayerController;
-
-
 /**
  * Draw a crosshair. This function is called by the Engine.HUD class.
  */
-function DrawHUD( HUD H )
-{
+function DrawHUD(HUD H) {
 	local float CrosshairSize;
 	super.DrawHUD(H);
 
@@ -20,6 +17,5 @@ function DrawHUD( HUD H )
 	H.Canvas.DrawRect(1, 2*CrosshairSize + 1);
 }
 
-DefaultProperties
-{
+DefaultProperties {
 }

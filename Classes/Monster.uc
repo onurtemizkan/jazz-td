@@ -7,37 +7,34 @@ class Monster extends Pawn
 	var float LastEngageTime;
 	var SkeletalMeshComponent MonsterMeshComp;
 	
-event Walk(){ 
+event Walk() { 
 	//Trace waypoint
 }
 
-event Die(){
-	if(isDead()){
+event Die() {
+	if(isDead()) {
 		SetTimer(0.5); // after 0.5 secs 
 		Self.Destroy();
 	}
 }
 
-function bool isDead(){
-	if(HitPoint <= 0){
+function bool isDead() {
+	if(HitPoint <= 0) {
 		return true;
-	}
-	else{
+	} else {
 		return false;
 	}
 }
 
-simulated event Tick(float DeltaTime){
+simulated event Tick(float DeltaTime) {
 	Super.Tick(DeltaTime);
-	if (WorldInfo.TimeSeconds - LastEngageTime > 2.0f)
-		{
+	if (WorldInfo.TimeSeconds - LastEngageTime > 2.0f) {
 			LastEngageTime = WorldInfo.TimeSeconds;
 			Die();
 		}
 	}
 
-DefaultProperties
-{
+DefaultProperties { 
 	Begin Object Class=SkeletalMeshComponent Name=MonsterMeshTemp
 		SkeletalMesh=SkeletalMesh'CH_LIAM_Cathode.Mesh.SK_CH_LIAM_Cathode'
 	End Object

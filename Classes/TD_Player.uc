@@ -18,18 +18,15 @@ var float CurrentPitch;
 
 var AnimNodeAimOffset AimNode;
 
-simulated event PostBeginPlay(){
+simulated event PostBeginPlay() {
 	Super.PostBeginPlay();
-
-        //Set the desired and current Yaw values EQUAL
+    //Set the desired and current Yaw values EQUAL
 	DesiredYaw = Rotation.Yaw;
 	CurrentYaw = Rotation.Yaw;
-
 	`Log("Player UP!");
 }
 
-simulated function bool CalcCamera(float DeltaTime, out vector out_CamLoc, out rotator out_CamRot, out float out_FOV)
-{
+simulated function bool CalcCamera(float DeltaTime, out vector out_CamLoc, out rotator out_CamRot, out float out_FOV) {
 	local Vector PawnDirX, PawnDirY, PawnDirZ;
 	local Rotator DesiredRot;
 	GetAxes(Self.Rotation,PawnDirX,PawnDirY,PawnDirZ);
@@ -41,8 +38,7 @@ simulated function bool CalcCamera(float DeltaTime, out vector out_CamLoc, out r
 	return true;
 }
 
-DefaultProperties
-{
+DefaultProperties {
 	Begin Object Class=SkeletalMeshComponent name=PlayerMeshTemp
 		SkeletalMesh=SkeletalMesh'VH_Scorpion.Mesh.SK_VH_Scorpion_001'
 	End Object

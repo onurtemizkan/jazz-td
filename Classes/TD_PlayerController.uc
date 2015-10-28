@@ -10,24 +10,24 @@ var int LastEngageTime;
 var input float aVertical;
 var input float aHorizontal;
 
-simulated event PostBeginPlay(){
+simulated event PostBeginPlay() {
 	super.PostBeginPlay();
 	`Log("PlayerController Up!");
 }
 
-simulated event TCooldown(float DeltaTime){
+simulated event TCooldown(float DeltaTime) {
 	Super.Tick(DeltaTime);
 
 	if(WorldInfo.TimeSeconds - LastEngageTime > TowerCooldown) {
 		LastEngageTime = WorldInfo.TimeSeconds;
-		if(TowersRemaining < MaxTowers){
+		if(TowersRemaining < MaxTowers) {
 			TowersRemaining++;
 		}
 	}
 }
 
 exec function SpawnTower() {
-	if(TowersRemaining > 0){
+	if(TowersRemaining > 0) {
 	Spawn(Class'MyGame.Tower',,,Pawn.Location,,,);
 		`Log("Tower Spawned");
 		TowersRemaining--;
@@ -41,22 +41,20 @@ exec function SpawnTower() {
 function UpdateRotation( float DeltaTime ) {
 	local Rotator   DeltaRot, newRotation, ViewRotation;
 	ViewRotation = Rotation;
-	if (Pawn!=none)
-	{
-	Pawn.SetDesiredRotation(ViewRotation);
+	if (Pawn!=none) {
+		Pawn.SetDesiredRotation(ViewRotation);
 	}
 
 	// Calculate Delta to be applied on ViewRotation
 	DeltaRot.Yaw      = PlayerInput.aTurn;
 	DeltaRot.Pitch    = PlayerInput.aLookUp;
 
-	ProcessViewRotation( DeltaTime, ViewRotation, DeltaRot );
-
+	ProcessViewRotation( DeltaTime, ViewRotation, DeltaRot);
 	SetRotation(ViewRotation);
 	NewRotation = ViewRotation;
 	NewRotation.Roll = Rotation.Roll;
-	if ( Pawn != None ) {
-	Pawn.FaceRotation(NewRotation, deltatime);
+	if(Pawn != None ) {
+		Pawn.FaceRotation(NewRotation, deltatime);
 	}
 }
 
@@ -66,31 +64,24 @@ function PlayerMove(float DeltaTime) {
 
 	if (Pawn == None) {
 		GotoState('Dead');
-	}
-	else {
+	} else {
 		// Update acceleration
 		NewAccel.X = PlayerInput.aForward;
 		NewAccel.Y = PlayerInput.aStrafe;
 		NewAccel.Z = 0;
-
 		NewAccel = Pawn.AccelRate * Normal(NewAccel);
-			
-
 		UpdateRotation(DeltaTime);
-
 		// Handle jumping
 		if (bPressedJump && Pawn.CannotJumpNow()) {
 			bSaveJump = true;
 			bPressedJump = false;
-		}
-		else {
+		} else {
 			bSaveJump = false;
 		}
 		// Update the movement, either replicate it or process it
 		if (Role < ROLE_Authority) {
 			ReplicateMove(DeltaTime, NewAccel, DCLICK_None, Self.Rotation);
-		}
-		else {
+		} else {
 			ProcessMove(DeltaTime, NewAccel, DCLICK_None, Self.Rotation);
 		}
 		bPressedJump = bSaveJump;

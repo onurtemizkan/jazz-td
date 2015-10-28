@@ -23,7 +23,7 @@ simulated event Tick(float DeltaTime) {
 	if (WorldInfo.TimeSeconds - LastEngageTime > 0.3f) {
 		LastEngageTime = WorldInfo.TimeSeconds;
 		fire();
-      	}
+    }
 }
 
 function ThrowDamage(int AttackRate, Monster CMonster) {
@@ -32,10 +32,9 @@ function ThrowDamage(int AttackRate, Monster CMonster) {
 
 function bool CheckKilled(Monster CMonster) {
 	if(CMonster.isDead()) {
-	return true;
-	}
-	else {
-	return false;
+		return true;
+	} else {
+		return false;
 	}
 }
 
@@ -62,7 +61,7 @@ event Fire() {
 
 	`Log("Monster Hp  : "@Closest.HitPoint);
 	if(CheckKilled(Closest)) {
-	       Exp += (Closest.Defense * Closest.Speed) / 100;
+	    Exp += (Closest.Defense * Closest.Speed) / 100;
 	}
 }
 
@@ -75,7 +74,6 @@ DefaultProperties {
 	end object
 	TowerMeshComp = TowerMeshCompTemp;
 	Components.Add(TowerMeshCompTemp);
-
 	Attack = 20;
 	ShootingRadius = 10000.0;
 	Exp = 0.0;

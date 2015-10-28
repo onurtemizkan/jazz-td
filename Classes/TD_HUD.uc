@@ -7,7 +7,6 @@ function DrawGameHud(){
 	Canvas.DrawText("HelloWorld");
 }
 
-
 DefaultProperties
 {
 }

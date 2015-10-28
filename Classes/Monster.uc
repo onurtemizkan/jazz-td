@@ -8,7 +8,6 @@ class Monster extends Pawn
 	var SkeletalMeshComponent MonsterMeshComp;
 	
 event Walk(){ 
-	
 	//Trace waypoint
 }
 
@@ -19,7 +18,6 @@ event Die(){
 	}
 }
 
-
 function bool isDead(){
 	if(HitPoint <= 0){
 		return true;
@@ -29,15 +27,12 @@ function bool isDead(){
 	}
 }
 
-
 simulated event Tick(float DeltaTime){
 	Super.Tick(DeltaTime);
-
 	if (WorldInfo.TimeSeconds - LastEngageTime > 2.0f)
 		{
 			LastEngageTime = WorldInfo.TimeSeconds;
 			Die();
-		
 		}
 	}
 

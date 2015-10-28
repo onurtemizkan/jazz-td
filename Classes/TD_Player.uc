@@ -16,38 +16,29 @@ var float DesiredYaw;
 var float CurrentYaw;
 var float CurrentPitch;
 
-var	AnimNodeAimOffset AimNode; // ?????????
+var AnimNodeAimOffset AimNode;
 
 simulated event PostBeginPlay(){
-	
 	Super.PostBeginPlay();
 
-	//Set the desired and current Yaw values EQUAL
+        //Set the desired and current Yaw values EQUAL
 	DesiredYaw = Rotation.Yaw;
 	CurrentYaw = Rotation.Yaw;
 
-
 	`Log("Player UP!");
 }
-
 
 simulated function bool CalcCamera(float DeltaTime, out vector out_CamLoc, out rotator out_CamRot, out float out_FOV)
 {
 	local Vector PawnDirX, PawnDirY, PawnDirZ;
 	local Rotator DesiredRot;
-
 	GetAxes(Self.Rotation,PawnDirX,PawnDirY,PawnDirZ);
-	
 	out_CamLoc = Self.Location - (PawnDirX) * CamOffsetDistance;
 	out_CamLoc.Z = Self.Location.Z + 150;
-
-	//DesiredRot = out_CamRot;
 	out_CamRot = Self.Rotation;
 	out_CamRot.Pitch = -IsoCamAngle;
-	
 	DesiredRot = out_CamRot;
 	return true;
-
 }
 
 DefaultProperties
@@ -57,8 +48,6 @@ DefaultProperties
 	End Object
 	PlayerMeshComp=PlayerMeshTemp;
 	Components.Add(PlayerMeshTemp);
-
 	CamOffsetDistance=350;
 	IsoCamAngle = 2730;
-
 }

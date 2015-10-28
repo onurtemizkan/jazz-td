@@ -17,18 +17,15 @@ simulated function ProcessTouch(Actor Other, Vector HitLocation, Vector HitNorma
 {
 	super.ProcessTouch(Other, HitLocation, HitNormal);
 
-	`log("MISSILE HIT"@Other);
+	`log("MISSILE HIT "@Other);
 }
 
 DefaultProperties
 {
-
-	//WeaponProjectiles(1)=class'Sandbox.SandboxPaintballProjectile'
 	begin object class=StaticMeshComponent name=MissileMeshTemp
-		StaticMesh=StaticMesh'Pickups.Flag.Mesh.S_Flagbase_Lightcone'
+        	StaticMesh=StaticMesh'Pickups.Flag.Mesh.S_Flagbase_Lightcone'
 	end object
 	MissileMesh=MissileMeshTemp;
 	Components.Add(MissileMeshTemp);
-
 	bRotationFollowsVelocity=true
 }

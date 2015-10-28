@@ -11,54 +11,40 @@ var input float aVertical;
 var input float aHorizontal;
 
 simulated event PostBeginPlay(){
-
 	super.PostBeginPlay();
 	`Log("PlayerController Up!");
 }
 
-simulated event TCooldown(float DeltaTime)
-{
-	
+simulated event TCooldown(float DeltaTime){
 	Super.Tick(DeltaTime);
 
-	
-
-	if (WorldInfo.TimeSeconds - LastEngageTime > TowerCooldown)
-	{
-		
+	if(WorldInfo.TimeSeconds - LastEngageTime > TowerCooldown) {
 		LastEngageTime = WorldInfo.TimeSeconds;
 		if(TowersRemaining < MaxTowers){
 			TowersRemaining++;
 		}
 	}
-	
 }
 
-exec function SpawnTower(){
-	
+exec function SpawnTower() {
 	if(TowersRemaining > 0){
 	Spawn(Class'MyGame.Tower',,,Pawn.Location,,,);
-
-		`Log("Tower Spawned!1bir");
-
+		`Log("Tower Spawned");
 		TowersRemaining--;
 	}
 
-	else{
+	else {
 		`Log("Wait for the cooldown to spawn another tower!  "@(TowerCoolDown-LastEngageTime));
 	}
 }
 
-function UpdateRotation( float DeltaTime )
-{
+function UpdateRotation( float DeltaTime ) {
 	local Rotator   DeltaRot, newRotation, ViewRotation;
-
 	ViewRotation = Rotation;
 	if (Pawn!=none)
 	{
 	Pawn.SetDesiredRotation(ViewRotation);
 	}
-
 
 	// Calculate Delta to be applied on ViewRotation
 	DeltaRot.Yaw      = PlayerInput.aTurn;
@@ -74,20 +60,14 @@ function UpdateRotation( float DeltaTime )
 	}
 }
 
-
-function PlayerMove(float DeltaTime)
-{
+function PlayerMove(float DeltaTime) {
 	local Vector NewAccel;
 	local bool bSaveJump;
 
-	if (Pawn == None)
-	{
+	if (Pawn == None) {
 		GotoState('Dead');
 	}
-	else
-	{
-
-
+	else {
 		// Update acceleration
 		NewAccel.X = PlayerInput.aForward;
 		NewAccel.Y = PlayerInput.aStrafe;
@@ -99,36 +79,28 @@ function PlayerMove(float DeltaTime)
 		UpdateRotation(DeltaTime);
 
 		// Handle jumping
-		if (bPressedJump && Pawn.CannotJumpNow())
-		{
+		if (bPressedJump && Pawn.CannotJumpNow()) {
 			bSaveJump = true;
 			bPressedJump = false;
 		}
-		else
-		{
+		else {
 			bSaveJump = false;
 		}
-
 		// Update the movement, either replicate it or process it
-		if (Role < ROLE_Authority)
-		{
+		if (Role < ROLE_Authority) {
 			ReplicateMove(DeltaTime, NewAccel, DCLICK_None, Self.Rotation);
 		}
-		else
-		{
+		else {
 			ProcessMove(DeltaTime, NewAccel, DCLICK_None, Self.Rotation);
 		}
-
 		bPressedJump = bSaveJump;
 	}
 }
 
 
 
-DefaultProperties
-{
+DefaultProperties {
 	TowersRemaining=5
 	TowerCooldown=15//Seconds
 	MaxTowers=10
-	//CameraClass=class'TD_Camera'
 }

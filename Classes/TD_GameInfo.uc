@@ -2,7 +2,6 @@ class TD_GameInfo extends SimpleGame;
 
 event PostBeginPlay(){
 	super.PostBeginPlay();
-	`Log("GameInfo Up!!!!!!!!!!!!!!!!!!!!!!!!");
 }
 
 DefaultProperties

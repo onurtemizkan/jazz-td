@@ -11,8 +11,6 @@ function bool isDestroyed(){
 function EndOfGame(){
 	if(isDestroyed()){
 		self.Destroy();
-		
-	//// Game Over Screen ?
 	}
 }
 
